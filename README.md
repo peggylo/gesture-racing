@@ -4,6 +4,10 @@
 
 **本專案為 Claude Code 人機協作開發的實驗專案。目前僅支援本機使用，若要改為線上版本有安全性與架構上的問題需要處理，請務必參考 [Code Review](docs/code_review.md)。**
 
+## Demo
+
+[![Demo 影片](https://img.youtube.com/vi/bzPymAd4ZHY/maxresdefault.jpg)](https://youtu.be/bzPymAd4ZHY)
+
 ## 架構
 
 ```
