@@ -8,7 +8,6 @@ import mediapipe as mp
 import socket
 import json
 import os
-import time
 
 # === 常數定義 ===
 
@@ -36,7 +35,7 @@ PINKY_PIP = 18
 PINKY_MCP = 17
 
 # 閾值
-PALM_WIDTH_THRESHOLD = 0.15  # knife vs palm 的手掌寬度閾值
+PALM_WIDTH_THRESHOLD = 0.15  # palm 判斷的手掌寬度閾值
 TWO_DIRECTION_THRESHOLD = 0.05  # two 手勢傾斜方向閾值
 POINT_DIRECTION_THRESHOLD = 0.04  # point 左右方向閾值
 
@@ -68,7 +67,7 @@ def get_extended_fingers(landmarks):
 # === 手掌寬度 ===
 
 def get_palm_width(landmarks):
-    """計算食指 MCP 與小指 MCP 的 x 軸距離，用來區分 palm 與 knife"""
+    """計算食指 MCP 與小指 MCP 的 x 軸距離，用來判斷手掌是否正面朝鏡頭"""
     return abs(landmarks[INDEX_MCP].x - landmarks[PINKY_MCP].x)
 
 
@@ -116,7 +115,7 @@ def classify_gesture(landmarks):
 
     # 握拳：四指（不含拇指）都沒伸直 → 煞車
     if not any(fingers[1:]):
-        return ("knife", "null")
+        return ("fist", "null")
 
     # 四指（不含拇指）全伸 → palm（待機）
     if all(fingers[1:]):

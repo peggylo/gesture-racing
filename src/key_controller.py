@@ -13,15 +13,12 @@ UDP_HOST = "127.0.0.1"
 UDP_PORT = 9999
 BUFFER_SIZE = 1024
 
-# 鍵盤控制器
-keyboard = Controller()
-
 # 手勢對應表：(gesture, direction) → 按鍵
 GESTURE_KEY_MAP = {
     ("point", "up"): Key.up,
     ("point", "left"): Key.left,
     ("point", "right"): Key.right,
-    ("knife", "null"): Key.down,
+    ("fist", "null"): Key.down,
     ("two", "left"): KeyCode.from_char("q"),
     ("two", "right"): KeyCode.from_char("e"),
 }
@@ -29,33 +26,36 @@ GESTURE_KEY_MAP = {
 # 放開所有鍵的手勢
 RELEASE_GESTURES = {"palm", "none"}
 
-# 目前被按住的按鍵集合
-pressed_keys = set()
 
+class KeyController:
+    """管理鍵盤模擬狀態，追蹤目前被按住的按鍵"""
 
-def release_all():
-    """放開所有目前被按住的按鍵"""
-    for key in list(pressed_keys):
-        keyboard.release(key)
-    pressed_keys.clear()
+    def __init__(self):
+        self.keyboard = Controller()
+        self.pressed_keys = set()
 
+    def release_all(self):
+        """放開所有目前被按住的按鍵"""
+        for key in list(self.pressed_keys):
+            self.keyboard.release(key)
+        self.pressed_keys.clear()
 
-def update_keys(target_keys):
-    """
-    根據目標按鍵集合，差異更新按鍵狀態：
-    - 放開不在目標中的舊按鍵
-    - 按下目標中尚未按住的新按鍵
-    """
-    to_release = pressed_keys - target_keys
-    to_press = target_keys - pressed_keys
+    def update_keys(self, target_keys):
+        """
+        根據目標按鍵集合，差異更新按鍵狀態：
+        - 放開不在目標中的舊按鍵
+        - 按下目標中尚未按住的新按鍵
+        """
+        to_release = self.pressed_keys - target_keys
+        to_press = target_keys - self.pressed_keys
 
-    for key in to_release:
-        keyboard.release(key)
-        pressed_keys.discard(key)
+        for key in to_release:
+            self.keyboard.release(key)
+            self.pressed_keys.discard(key)
 
-    for key in to_press:
-        keyboard.press(key)
-        pressed_keys.add(key)
+        for key in to_press:
+            self.keyboard.press(key)
+            self.pressed_keys.add(key)
 
 
 def get_target_keys(gesture, direction):
@@ -74,14 +74,15 @@ def get_target_keys(gesture, direction):
     return set()
 
 
-def handle_exit(signum, frame):
-    """收到中斷訊號時，放開所有按鍵再退出"""
-    print("\n正在退出，放開所有按鍵...")
-    release_all()
-    sys.exit(0)
-
-
 def main():
+    controller = KeyController()
+
+    def handle_exit(signum, frame):
+        """收到中斷訊號時，放開所有按鍵再退出"""
+        print("\n正在退出，放開所有按鍵...")
+        controller.release_all()
+        sys.exit(0)
+
     # 註冊訊號處理，確保退出時放開所有按鍵
     signal.signal(signal.SIGINT, handle_exit)
     signal.signal(signal.SIGTERM, handle_exit)
@@ -103,7 +104,7 @@ def main():
                 direction = msg.get("direction", "null")
 
                 target_keys = get_target_keys(gesture, direction)
-                update_keys(target_keys)
+                controller.update_keys(target_keys)
 
             except (json.JSONDecodeError, UnicodeDecodeError) as e:
                 print(f"封包解析錯誤：{e}")
@@ -111,7 +112,7 @@ def main():
     except Exception as e:
         print(f"發生錯誤：{e}")
     finally:
-        release_all()
+        controller.release_all()
         sock.close()
         print("已關閉連線")
 

@@ -8,7 +8,7 @@
 - [x] 比 1 食指朝上 → 顯示 `point, up`
 - [x] 比 1 食指指左 → 顯示 `point, left`
 - [x] 比 1 食指指右 → 顯示 `point, right`
-- [x] 握拳 → 顯示 `knife, null`
+- [x] 握拳 → 顯示 `fist, null`
 - [x] 比 2 + 手掌左傾 → 顯示 `two, left`
 - [x] 比 2 + 手掌右傾 → 顯示 `two, right`
 - [x] 掌心正面朝鏡頭 → 顯示 `palm, null`
