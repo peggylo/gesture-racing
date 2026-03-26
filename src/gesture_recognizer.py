@@ -106,6 +106,7 @@ def classify_gesture(landmarks):
     # fingers = [thumb, index, middle, ring, pinky]
 
     # 握拳：四指（不含拇指）都沒伸直 → 煞車
+    # 刻意不檢查拇指，因為自然握拳時拇指狀態不穩定，納入可能導致誤判
     if not any(fingers[1:]):
         return ("fist", "null")
 
