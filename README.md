@@ -98,3 +98,5 @@ python3 src/gesture_recognizer.py
 <a href="https://youtu.be/bzPymAd4ZHY">
   <img src="https://img.youtube.com/vi/bzPymAd4ZHY/maxresdefault.jpg" width="50%" alt="製作過程縮時影片">
 </a>
+
+🎬 https://youtu.be/bzPymAd4ZHY
