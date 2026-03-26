@@ -93,7 +93,7 @@ python3 src/gesture_recognizer.py
 
 ## 製作過程
 
-本專案由人類與 [Claude Code](https://claude.ai/code) 協作完成，從需求討論、架構設計、程式開發到測試除錯，全程在 Claude Code 中進行。以下為過程縮時紀錄：
+本專案由人類與 [Claude Code](https://claude.ai/code) 於終端機開發協作完成，包含需求討論、架構設計、程式開發到測試除錯及 Code Review，以下為過程縮時紀錄：
 
 <a href="https://youtu.be/bzPymAd4ZHY">
   <img src="https://img.youtube.com/vi/bzPymAd4ZHY/maxresdefault.jpg" width="50%" alt="製作過程縮時影片">

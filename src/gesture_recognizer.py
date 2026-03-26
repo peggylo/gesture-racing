@@ -19,6 +19,7 @@ UDP_PORT = 9999
 MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hand_landmarker.task")
 
 # MediaPipe Hand Landmark 索引
+# 簡寫自官方名稱（如 INDEX_MCP 對應 INDEX_FINGER_MCP，THUMB_MCP 對應 THUMB_CMC）
 WRIST = 0
 THUMB_TIP = 4
 THUMB_IP = 3
