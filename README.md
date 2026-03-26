@@ -4,9 +4,7 @@
 
 **本專案為 Claude Code 人機協作開發的實驗專案。目前僅支援本機使用，若要改為線上版本有安全性與架構上的問題需要處理，請務必參考 [Code Review](docs/code_review.md)。**
 
-## Demo
-
-[![Demo 影片](https://img.youtube.com/vi/bzPymAd4ZHY/maxresdefault.jpg)](https://youtu.be/bzPymAd4ZHY)
+**本專案可能存在未發現的問題或錯誤，歡迎開 [Issue](https://github.com/peggylo/gesture-racing/issues) 回報或提出改善建議。**
 
 ## 架構
 
@@ -36,7 +34,7 @@
 
 ```bash
 # 安裝 Python 套件
-pip install opencv-python mediapipe pynput
+pip install -r requirements.txt
 
 # 下載手部辨識模型（放在 src/ 目錄下）
 wget -O src/hand_landmarker.task https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
@@ -77,6 +75,7 @@ python3 src/gesture_recognizer.py
 │   ├── test_checklist.md      # 測試清單
 │   ├── code_review.md         # Code Review（含已知限制與改進方向）
 │   └── learn.md               # 學習筆記
+├── requirements.txt           # Python 套件依賴
 └── README.md
 ```
 
@@ -91,3 +90,11 @@ python3 src/gesture_recognizer.py
 ## 已知限制
 
 本專案目前為本機（localhost）概念驗證，架構上依賴本機 UDP 通訊與系統層級鍵盤模擬，不適用於線上部署。若要讓其他人透過網路遊玩，需要根本性的架構調整。相關分析與建議路線請參考 [Code Review](docs/code_review.md)。
+
+## 製作過程
+
+本專案由人類與 [Claude Code](https://claude.ai/code) 協作完成，從需求討論、架構設計、程式開發到測試除錯，全程在 Claude Code 中進行。以下為過程縮時紀錄：
+
+<a href="https://youtu.be/bzPymAd4ZHY">
+  <img src="https://img.youtube.com/vi/bzPymAd4ZHY/maxresdefault.jpg" width="50%" alt="製作過程縮時影片">
+</a>

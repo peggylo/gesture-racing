@@ -32,10 +32,8 @@ RING_TIP = 16
 RING_PIP = 14
 PINKY_TIP = 20
 PINKY_PIP = 18
-PINKY_MCP = 17
 
 # 閾值
-PALM_WIDTH_THRESHOLD = 0.15  # palm 判斷的手掌寬度閾值
 TWO_DIRECTION_THRESHOLD = 0.05  # two 手勢傾斜方向閾值
 POINT_DIRECTION_THRESHOLD = 0.04  # point 左右方向閾值
 
@@ -62,13 +60,6 @@ def get_extended_fingers(landmarks):
         is_finger_extended(landmarks, RING_TIP, RING_PIP),
         is_finger_extended(landmarks, PINKY_TIP, PINKY_PIP),
     ]
-
-
-# === 手掌寬度 ===
-
-def get_palm_width(landmarks):
-    """計算食指 MCP 與小指 MCP 的 x 軸距離，用來判斷手掌是否正面朝鏡頭"""
-    return abs(landmarks[INDEX_MCP].x - landmarks[PINKY_MCP].x)
 
 
 # === 方向判斷 ===
